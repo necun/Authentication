@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from routes import authentication
+
+from routes import *
 
 app = FastAPI()
 
@@ -9,6 +10,7 @@ app.include_router(authentication.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI app"}
+
 
 if __name__ == "__main__":
     import uvicorn
