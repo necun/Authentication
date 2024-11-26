@@ -174,22 +174,22 @@ async def send_verification_email(email: str, verification_token: int):
         msg.attach(MIMEText(body, 'plain'))
 
         # Sending the email
-        logger.info("Connecting to SMTP server...")
+        logger_instance.info("Connecting to SMTP server...")
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
-            logger.info("Logging into SMTP server...")
+            logger_instance.info("Logging into SMTP server...")
             server.login(smtp_username, smtp_password)
-            logger.info("Sending verification email...")
+            logger_instance.info("Sending verification email...")
             server.send_message(msg)
-            logger.info("Verification email sent successfully to", email)
+            logger_instance.info("Verification email sent successfully to", email)
 
         return {"message": "Verification email sent successfully", "email": email}
 
     except SMTPException as smtp_err:
-        logger.error("SMTPException occurred: %s", smtp_err)
+        logger_instance.error("SMTPException occurred: %s", smtp_err)
         raise SMTPException("Failed to send verification email. Please try again later.")
     except Exception as e:
-        logger.error("Unexpected error occurred: %s", e)
+        logger_instance.error("Unexpected error occurred: %s", e)
         raise Exception("An unexpected error occurred while sending verification email.")
 
 
